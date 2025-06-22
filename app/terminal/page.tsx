@@ -1,35 +1,66 @@
 "use client"
 
 import type React from "react"
+// import resume from "../assets/resume.pdf";
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 
-const commands = ["projects", "resume", "experiments", "ai-lab", "contact", "profile"]
-
+const commands_title = ["projects", "resume", "experiments", "ai-lab", "contact", "profile"]
+const commands = ["cd projects", "cd resume", "cd experiments", "cd ai-lab", "cd contact", "cd profile"]
 const projectsData = [
   {
-    title: "Neural Network Visualizer",
-    description: "Interactive web app for visualizing neural network architectures and training processes",
-    tags: ["React", "D3.js", "TensorFlow.js", "WebGL"],
-    demo: "#",
-    github: "#",
+    title: "ThaProt-G: Alumni Networking Platform",
+    description: [
+      "Full-stack professional networking platform for Thapar students and alumni.",
+      "Features user authentication, dynamic dashboards, messaging, alumni search filters, and project showcasing.",
+      "Role-based access for students, alumni, and admin committee.",
+      "Built with React.js, Node.js, Express.js, and PostgreSQL.",
+      "Deployed with custom domain ensuring scalability and security."
+    ],
+    tags: ["React.js", "Node.js", "Express.js", "PostgreSQL", "REST API", "Full-Stack"],
+    demo: "https://thaprotg.thapar.edu",
+    github: "#"
   },
   {
-    title: "Distributed Task Scheduler",
-    description: "Microservices-based task scheduling system with real-time monitoring",
-    tags: ["Node.js", "Redis", "Docker", "Kubernetes"],
+    title: "Software Fault Prediction System",
+    description: [
+      "Machine learning-powered desktop application to predict software faults early in development.",
+      "Uses historical project data and ML algorithms for fault classification.",
+      "GUI built with Tkinter allows dataset uploads, predictions, and software health visualization.",
+      "Reduces maintenance cost and improves software reliability."
+    ],
+    tags: ["Python", "Machine Learning", "GUI", "Tkinter", "Software Reliability"],
     demo: "#",
-    github: "#",
+    github: "https://github.com/Madhav-Mahajan-13/software-fault-pediction-app"
   },
   {
-    title: "Blockchain Voting System",
-    description: "Secure and transparent voting platform using smart contracts",
-    tags: ["Solidity", "Web3.js", "React", "IPFS"],
+    title: "Healthcare Multilingual Assistant",
+    description: [
+      "Real-time multilingual speech-to-text and translation web app for healthcare providers.",
+      "Uses Deepgram API for transcription and Google Cloud Translation API for bidirectional translation.",
+      "Supports 12+ languages with live audio streaming and file uploads.",
+      "Backend built with Node.js, Express.js, and WebSocket-powered real-time updates via Socket.io.",
+      "Responsive UI built with Bootstrap for clinical usability."
+    ],
+    tags: ["Node.js", "Express.js", "Deepgram API", "Socket.io", "Bootstrap", "WebSockets", "Google Cloud Translation"],
     demo: "#",
-    github: "#",
+    github: "https://github.com/Madhav-Mahajan-13/deepgram"
   },
-]
+  {
+    title: "Voting System with Real-Time Fraud Detection",
+    description: [
+      "Command-line voting system built in C++ using STL data structures (hash maps, sets, vectors).",
+      "Ensures O(1) fraud detection by preventing multiple votes per user.",
+      "Provides real-time vote statistics with ASCII-based result visualization.",
+      "Logs duplicate votes with timestamps for admin audit.",
+      "Focuses on algorithmic efficiency, input validation, and data integrity."
+    ],
+    tags: ["C++", "STL", "Data Structures", "Algorithms", "Fraud Detection", "CLI Application"],
+    demo: "#",
+    github: "#"
+  }
+];
 
 const experimentsData = [
   {
@@ -129,7 +160,7 @@ export default function TerminalPage() {
 
   const renderContent = () => {
     switch (currentView) {
-      case "projects":
+      case "cd projects":
         return (
           <div className="space-y-6">
             <div className="text-[#66FCF1] font-mono text-lg mb-4">=== PROJECT PORTFOLIO ===</div>
@@ -157,53 +188,88 @@ export default function TerminalPage() {
           </div>
         )
 
-      case "resume":
-        return (
-          <div className="space-y-6">
-            <div className="text-[#66FCF1] font-mono text-lg mb-4">=== PROFESSIONAL RESUME ===</div>
+      case "cd resume":
+       return (
+      <div className="space-y-6">
+        <div className="text-[#66FCF1] font-mono text-lg mb-4">=== PROFESSIONAL RESUME ===</div>
 
-            <div className="space-y-4">
-              <section>
-                <h3 className="text-[#C3073F] font-mono text-md mb-2">EDUCATION</h3>
-                <div className="ml-4 font-mono text-sm text-gray-300">
-                  <p>• Master of Science in Computer Science - MIT (2022)</p>
-                  <p>• Bachelor of Science in Software Engineering - Stanford (2020)</p>
-                </div>
-              </section>
-
-              <section>
-                <h3 className="text-[#C3073F] font-mono text-md mb-2">EXPERIENCE</h3>
-                <div className="ml-4 font-mono text-sm text-gray-300 space-y-2">
-                  <div>
-                    <p className="text-[#66FCF1]">Senior Software Engineer - TechCorp (2022-Present)</p>
-                    <p>• Led development of distributed systems serving 10M+ users</p>
-                    <p>• Architected microservices infrastructure reducing latency by 40%</p>
-                  </div>
-                  <div>
-                    <p className="text-[#66FCF1]">Software Engineer - StartupXYZ (2020-2022)</p>
-                    <p>• Built full-stack applications using React, Node.js, and PostgreSQL</p>
-                    <p>• Implemented CI/CD pipelines improving deployment efficiency by 60%</p>
-                  </div>
-                </div>
-              </section>
-
-              <section>
-                <h3 className="text-[#C3073F] font-mono text-md mb-2">SKILLS</h3>
-                <div className="ml-4 font-mono text-sm text-gray-300">
-                  <p>• Languages: JavaScript, Python, Go, Rust, Solidity</p>
-                  <p>• Frameworks: React, Next.js, Node.js, Django, FastAPI</p>
-                  <p>• Tools: Docker, Kubernetes, AWS, PostgreSQL, Redis</p>
-                </div>
-              </section>
+        <div className="space-y-4">
+          
+          <section>
+            <h3 className="text-[#C3073F] font-mono text-md mb-2">EDUCATION</h3>
+            <div className="ml-4 font-mono text-sm text-gray-300">
+              <p>• B.E in Computer Engineering - Thapar Institute of Engineering and Technology (Expected 2026)</p>
+              <p>• 12th (Non-Medical) - Holy Heart Presidency School (2022) - 93.4%</p>
+              <p>• 10th - Holy Heart Presidency School (2020) - 92.8%</p>
             </div>
+          </section>
 
-            <button className="bg-[#66FCF1]/20 border border-[#66FCF1] text-[#66FCF1] px-4 py-2 rounded font-mono hover:bg-[#66FCF1]/30 transition-colors">
-              [DOWNLOAD RESUME]
-            </button>
-          </div>
-        )
+          <section>
+            <h3 className="text-[#C3073F] font-mono text-md mb-2">EXPERIENCE</h3>
+            <div className="ml-4 font-mono text-sm text-gray-300 space-y-2">
+              <div>
+                <p className="text-[#66FCF1]">Frontend Developer - HealthArc (Feb 2025 – Apr 2025)</p>
+                <p>• Converted legacy PHP frontend to modern React architecture.</p>
+                <p>• Integrated Deepgram API for real-time speech-to-text functionality.</p>
+                <p>• Built proof-of-concept Shopify integration for product listings & payments.</p>
+              </div>
+              <div>
+                <p className="text-[#66FCF1]">Full-Stack Developer - Alumni Relation Cell (Sep 2024 – Feb 2025)</p>
+                <p>• Designed and developed ThaProt-G — a professional networking platform for Thapar alumni & students.</p>
+                <p>• Built scalable backend with Express.js & PostgreSQL handling user data, messaging, and projects.</p>
+                <p>• Deployed full-stack application with production domain integration.</p>
+              </div>
+            </div>
+          </section>
 
-      case "experiments":
+          <section>
+            <h3 className="text-[#C3073F] font-mono text-md mb-2">PROJECTS</h3>
+            <div className="ml-4 font-mono text-sm text-gray-300 space-y-2">
+              <div>
+                <p className="text-[#66FCF1]">ThaProt-G: Alumni Networking Platform</p>
+                <p>• Full-stack web app enabling student-alumni collaboration, funding, and project showcases.</p>
+                <p>• Role-based access system with custom domain deployment.</p>
+              </div>
+              <div>
+                <p className="text-[#66FCF1]">Software Fault Prediction System</p>
+                <p>• ML-powered desktop app predicting software faults using historical project data.</p>
+                <p>• GUI built with Tkinter for real-time dataset analysis and visualization.</p>
+              </div>
+              <div>
+                <p className="text-[#66FCF1]">Healthcare Multilingual Assistant</p>
+                <p>• Real-time multilingual speech-to-text web app for healthcare providers.</p>
+                <p>• Integrated Deepgram API & Google Cloud Translation across 12+ languages.</p>
+              </div>
+              <div>
+                <p className="text-[#66FCF1]">Voting System with Fraud Detection</p>
+                <p>• CLI voting system in C++ using STL for real-time fraud detection & result visualization.</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3 className="text-[#C3073F] font-mono text-md mb-2">SKILLS</h3>
+            <div className="ml-4 font-mono text-sm text-gray-300">
+              <p>• Languages: Python, C/C++, SQL (PostgreSQL), JavaScript, HTML, CSS</p>
+              <p>• Frameworks & Libraries: React.js, Express.js, Node.js, jQuery, Bootstrap</p>
+              <p>• Tools: Git, VS Code, PyCharm, Jupyter Notebook, PostgreSQL</p>
+            </div>
+          </section>
+        </div>
+      
+      {/* Download Resume Button */}
+      <a
+        className="bg-[#66FCF1]/20 border border-[#66FCF1] text-[#66FCF1] px-4 py-2 rounded font-mono hover:bg-[#66FCF1]/30 transition-colors inline-block text-center"
+        href="/resume.pdf"
+        download
+      >
+        [DOWNLOAD RESUME]
+      </a>
+    </div>
+    )
+
+
+      case "cd experiments":
         return (
           <div className="space-y-6">
             <div className="text-[#66FCF1] font-mono text-lg mb-4">=== EXPERIMENTAL PROJECTS ===</div>
@@ -228,7 +294,7 @@ export default function TerminalPage() {
           </div>
         )
 
-      case "ai-lab":
+      case "cd ai-lab":
         return (
           <div className="space-y-6">
             <div className="text-[#66FCF1] font-mono text-lg mb-4">=== AI LABORATORY ===</div>
@@ -253,7 +319,7 @@ export default function TerminalPage() {
           </div>
         )
 
-      case "contact":
+      case "cd contact":
         return (
           <div className="space-y-6">
             <div className="text-[#66FCF1] font-mono text-lg mb-4">=== CONTACT INTERFACE ===</div>
@@ -292,7 +358,7 @@ export default function TerminalPage() {
           </div>
         )
 
-      case "profile":
+      case "cd profile":
         return (
           <div className="space-y-6">
             <div className="text-[#66FCF1] font-mono text-lg mb-4">=== USER PROFILE ===</div>
@@ -388,7 +454,7 @@ export default function TerminalPage() {
           </div>
 
           {/* Terminal Content */}
-          <div ref={terminalRef} className="p-6 h-96 overflow-y-auto">
+          <div ref={terminalRef} className="p-6 h-[500px] overflow-y-auto">
             {/* Command History */}
             {history.map((line, index) => (
               <div key={index} className="font-mono text-sm text-gray-300 mb-1">
@@ -402,10 +468,10 @@ export default function TerminalPage() {
             {/* Available Commands */}
             {currentView === "welcome" && (
               <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-2">
-                {commands.map((cmd) => (
+                {commands_title.map((cmd) => (
                   <button
                     key={cmd}
-                    onClick={() => handleCommand(cmd)}
+                    onClick={() => handleCommand("cd "+cmd)}
                     className="bg-[#66FCF1]/10 border border-[#66FCF1]/30 text-[#66FCF1] px-3 py-2 rounded font-mono text-sm hover:bg-[#66FCF1]/20 transition-colors"
                   >
                     {cmd}
@@ -435,4 +501,5 @@ export default function TerminalPage() {
       </div>
     </div>
   )
+
 }

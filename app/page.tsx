@@ -15,7 +15,7 @@ export default function HomePage() {
             <div className="w-10 h-10 bg-gradient-to-r from-[#66FCF1] to-[#C3073F] rounded-lg flex items-center justify-center">
               <span className="text-black font-bold text-lg">P</span>
             </div>
-            <span className="text-[#66FCF1] font-light text-sm tracking-wider">PORTFOLIO</span>
+            <span className="text-[#66FCF1] font-light text-sm tracking-wider">MADHAV MAHAJAN</span>
           </div>
         </div>
       </header>
