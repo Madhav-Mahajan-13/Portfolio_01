@@ -24,4 +24,6 @@ export const profileData = {
     "Learning New Technologies",
   ],
   contact: "madhavmahajan152@gmail.com",
+  github_link: "https://github.com/Madhav-Mahajan-13",
+  github_name: "Madhav-Mahajan-13",
 };
