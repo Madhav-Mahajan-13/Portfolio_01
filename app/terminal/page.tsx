@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-// import resume from "../assets/resume.pdf";
+import ContactForm from "./components/ContactForm"
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
@@ -321,41 +321,7 @@ export default function TerminalPage() {
 
       case "cd contact":
         return (
-          <div className="space-y-6">
-            <div className="text-[#66FCF1] font-mono text-lg mb-4">=== CONTACT INTERFACE ===</div>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-[#66FCF1] font-mono text-sm mb-2">NAME:</label>
-                <input
-                  type="text"
-                  className="w-full bg-[#0B0C10] border border-[#66FCF1]/30 rounded p-2 text-white font-mono focus:border-[#66FCF1] focus:outline-none"
-                  placeholder="Enter your name..."
-                />
-              </div>
-              <div>
-                <label className="block text-[#66FCF1] font-mono text-sm mb-2">EMAIL:</label>
-                <input
-                  type="email"
-                  className="w-full bg-[#0B0C10] border border-[#66FCF1]/30 rounded p-2 text-white font-mono focus:border-[#66FCF1] focus:outline-none"
-                  placeholder="Enter your email..."
-                />
-              </div>
-              <div>
-                <label className="block text-[#66FCF1] font-mono text-sm mb-2">MESSAGE:</label>
-                <textarea
-                  rows={4}
-                  className="w-full bg-[#0B0C10] border border-[#66FCF1]/30 rounded p-2 text-white font-mono focus:border-[#66FCF1] focus:outline-none resize-none"
-                  placeholder="Enter your message..."
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-[#66FCF1]/20 border border-[#66FCF1] text-[#66FCF1] px-6 py-2 rounded font-mono hover:bg-[#66FCF1]/30 transition-colors"
-              >
-                [SEND MESSAGE]
-              </button>
-            </form>
-          </div>
+          <ContactForm />
         )
 
       case "cd profile":
