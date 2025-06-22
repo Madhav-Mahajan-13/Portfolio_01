@@ -48,6 +48,6 @@ export const projectsData = [
     ],
     tags: ["C++", "STL", "Data Structures", "Algorithms", "Fraud Detection", "CLI Application"],
     demo: "#",
-    github: "#"
+    github: "https://github.com/Madhav-Mahajan-13/Voting-System-with-Fraud-Detection.git"
   }
 ];
