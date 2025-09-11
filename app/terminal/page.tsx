@@ -13,8 +13,8 @@ import AiLabSection from "./components/aiLab";
 import ProjectSection from "./components/ProjectSection";
 import ProfileSection from "./components/ProfileSection";
 
-const commands_title = ["projects", "resume", "experiments", "ai-lab", "contact", "profile"]
-const commands = ["cd projects", "cd resume", "cd experiments", "cd ai-lab", "cd contact", "cd profile"]
+const commands_title = ["projects", "resume", "experiments", "ai-lab", "contact", "profile","github"]
+const commands = ["cd projects", "cd resume", "cd experiments", "cd ai-lab", "cd contact", "cd profile", "cd github"]
 
 
 export default function TerminalPage() {
@@ -22,6 +22,7 @@ export default function TerminalPage() {
   const [history, setHistory] = useState<string[]>([])
   const [currentView, setCurrentView] = useState("welcome")
   const [isTyping, setIsTyping] = useState(false)
+  const [githubOpened, setGithubOpened] = useState(false) // Add this state
   const inputRef = useRef<HTMLInputElement>(null)
   const terminalRef = useRef<HTMLDivElement>(null)
 
@@ -36,6 +37,18 @@ export default function TerminalPage() {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight
     }
   }, [history, currentView])
+
+  // Effect to handle GitHub opening when view changes to GitHub
+  useEffect(() => {
+    if (currentView === "cd github" && !githubOpened) {
+      window.open("https://github.com/Madhav-Mahajan-13", "_blank")
+      setGithubOpened(true)
+    }
+    // Reset githubOpened when leaving GitHub view
+    if (currentView !== "cd github") {
+      setGithubOpened(false)
+    }
+  }, [currentView, githubOpened])
 
   const handleCommand = (command: string) => {
     const cmd = command.toLowerCase().trim()
@@ -72,7 +85,6 @@ export default function TerminalPage() {
       case "cd resume":
        return <ResumeTab/>
 
-
       case "cd experiments":
         return (
           <div className="space-y-6">
@@ -107,6 +119,31 @@ export default function TerminalPage() {
       case "cd profile":
         return (<ProfileSection/> )
 
+      case "cd github":
+        // Remove window.open from here, now handled in useEffect
+        return (
+          <div className="space-y-4">
+            <div className="text-[#66FCF1] font-mono text-lg mb-4">=== GITHUB REDIRECT ===</div>
+            <div className="text-gray-300 font-mono text-sm">
+              Opening GitHub profile in a new tab...
+            </div>
+            <div className="text-gray-400 font-mono text-xs">
+              <p>• GitHub: https://github.com/Madhav-Mahajan-13</p>
+              <p>• If the page didn't open, check your popup blocker settings</p>
+            </div>
+            <div className="mt-4">
+              <a 
+                href="https://github.com/Madhav-Mahajan-13" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#66FCF1] hover:text-white transition-colors font-mono underline"
+              >
+                Click here if GitHub didn't open automatically
+              </a>
+            </div>
+          </div>
+        )
+
       default:
         return (
           <div className="space-y-4">
@@ -136,11 +173,23 @@ export default function TerminalPage() {
         <div className="bg-black/50 border border-[#66FCF1]/30 rounded-lg overflow-hidden">
           {/* Terminal Header */}
           <div className="bg-[#66FCF1]/10 px-4 py-2 border-b border-[#66FCF1]/30">
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-[#C3073F] rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-[#66FCF1] rounded-full"></div>
-              <span className="ml-4 text-[#66FCF1] font-mono text-sm">terminal@portfolio:~$</span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-[#C3073F] rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-[#66FCF1] rounded-full"></div>
+                <span className="ml-4 text-[#66FCF1] font-mono text-sm">terminal@portfolio:~$</span>
+              </div>
+              {/* Back Button in Header */}
+              {currentView !== "welcome" && (
+                <button
+                  onClick={() => handleCommand("cd ..")}
+                  className="bg-[#C3073F]/20 border border-[#C3073F]/40 text-[#C3073F] px-3 py-1 rounded font-mono text-xs hover:bg-[#C3073F]/30 transition-colors flex items-center space-x-1"
+                >
+                  <span>←</span>
+                  <span>cd ..</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -192,5 +241,4 @@ export default function TerminalPage() {
       </div>
     </div>
   )
-
 }

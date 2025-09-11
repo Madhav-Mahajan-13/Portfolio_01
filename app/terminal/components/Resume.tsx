@@ -71,9 +71,11 @@ export default function ResumeTab() {
         </div>
       
       
+ 
+
       <a
         className="bg-[#66FCF1]/20 border border-[#66FCF1] text-[#66FCF1] px-4 py-2 rounded font-mono hover:bg-[#66FCF1]/30 transition-colors inline-block text-center"
-        href="/resume.pdf"
+        href="/resumee.pdf"
         download
       >
         [DOWNLOAD RESUME]
