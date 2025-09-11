@@ -182,23 +182,22 @@ const FloatingGameBubble = () => {
   const bubbleRef = useRef<HTMLDivElement>(null);
   const position = useRef({ x: 50, y: 50 });
   const velocity = useRef({
-    x: (Math.random() - 0.5) * 12, // slightly faster
+    x: (Math.random() - 0.5) * 12,
     y: (Math.random() - 0.5) * 12
   });
   const animationFrameId = useRef<number | null>(null);
 
   const messages = [
-    "🎮 Game On!",
-    "🕹️ Ready Player One?",
+    "🎮 Launching game...",
     "🚀 Powering up...",
+    "🕹️ Game loading...",
     "💥 You caught me!",
     "👾 Insert Coin",
-    "🧠 Outplaying reality..."
+    "⚡ Get ready!"
   ];
   const [message, setMessage] = useState<string | null>(null);
   const [clicked, setClicked] = useState(false);
 
-  // movement loop
   useEffect(() => {
     const moveBubble = () => {
       if (bubbleRef.current && !message) {
@@ -231,6 +230,7 @@ const FloatingGameBubble = () => {
       const random = messages[Math.floor(Math.random() * messages.length)];
       setMessage(random);
       setTimeout(() => {
+        window.open("https://minegame-indol.vercel.app/", "_blank");
         setMessage(null);
         setClicked(false);
       }, 2500);
@@ -246,7 +246,7 @@ const FloatingGameBubble = () => {
       }`}
       style={{
         transition: 'transform 0.05s',
-        padding: '10px' // slightly larger hit area
+        padding: '10px'
       }}
     >
       <div
