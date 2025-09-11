@@ -179,67 +179,283 @@ const MatrixRain = () => {
 
 // --- NEW Floating Game Bubble Component ---
 const FloatingGameBubble = () => {
-    const bubbleRef = useRef<HTMLAnchorElement>(null);
-    const position = useRef({ x: 50, y: 50 });
-    // Changed the multiplier from 8 to 12 to increase speed
-    const velocity = useRef({ x: (Math.random() - 0.5) * 12, y: (Math.random() - 0.5) * 12 });
-    const animationFrameId = useRef<number | null>(null);
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const position = useRef({ x: 50, y: 50 });
+  const velocity = useRef({
+    x: (Math.random() - 0.5) * 12, // slightly faster
+    y: (Math.random() - 0.5) * 12
+  });
+  const animationFrameId = useRef<number | null>(null);
 
-    useEffect(() => {
-        const moveBubble = () => {
-            if (bubbleRef.current) {
-                // Update position
-                position.current.x += velocity.current.x;
-                position.current.y += velocity.current.y;
+  const messages = [
+    "🎮 Game On!",
+    "🕹️ Ready Player One?",
+    "🚀 Powering up...",
+    "💥 You caught me!",
+    "👾 Insert Coin",
+    "🧠 Outplaying reality..."
+  ];
+  const [message, setMessage] = useState<string | null>(null);
+  const [clicked, setClicked] = useState(false);
 
-                // Collision detection with viewport edges
-                const rect = bubbleRef.current.getBoundingClientRect();
-                if (position.current.x + rect.width >= window.innerWidth || position.current.x <= 0) {
-                    velocity.current.x *= -1;
-                }
-                if (position.current.y + rect.height >= window.innerHeight || position.current.y <= 0) {
-                    velocity.current.y *= -1;
-                }
+  // movement loop
+  useEffect(() => {
+    const moveBubble = () => {
+      if (bubbleRef.current && !message) {
+        position.current.x += velocity.current.x;
+        position.current.y += velocity.current.y;
 
-                // Apply new position
-                bubbleRef.current.style.left = `${position.current.x}px`;
-                bubbleRef.current.style.top = `${position.current.y}px`;
-            }
-            animationFrameId.current = requestAnimationFrame(moveBubble);
-        };
+        const rect = bubbleRef.current.getBoundingClientRect();
+        if (position.current.x + rect.width >= window.innerWidth || position.current.x <= 0) {
+          velocity.current.x *= -1;
+        }
+        if (position.current.y + rect.height >= window.innerHeight || position.current.y <= 0) {
+          velocity.current.y *= -1;
+        }
 
-        animationFrameId.current = requestAnimationFrame(moveBubble);
+        bubbleRef.current.style.left = `${position.current.x}px`;
+        bubbleRef.current.style.top = `${position.current.y}px`;
+      }
+      animationFrameId.current = requestAnimationFrame(moveBubble);
+    };
 
-        return () => {
-            if (animationFrameId.current) {
-                cancelAnimationFrame(animationFrameId.current);
-            }
-        };
-    }, []);
+    animationFrameId.current = requestAnimationFrame(moveBubble);
+    return () => {
+      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+    };
+  }, [message]);
 
-    return (
-        <a
-            ref={bubbleRef}
-            href="https://minegame-indol.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="fixed top-1/2 left-1/2 z-40 flex h-20 w-20 transform items-center justify-center rounded-full bg-cyan-400/10 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-cyan-400/20"
-            style={{
-                boxShadow: '0 0 15px rgba(102, 252, 241, 0.4), inset 0 0 10px rgba(102, 252, 241, 0.3)',
-                border: '1px solid rgba(102, 252, 241, 0.5)',
-            }}
+  const handleClick = () => {
+    if (!message) {
+      setClicked(true);
+      const random = messages[Math.floor(Math.random() * messages.length)];
+      setMessage(random);
+      setTimeout(() => {
+        setMessage(null);
+        setClicked(false);
+      }, 2500);
+    }
+  };
+
+  return (
+    <div
+      ref={bubbleRef}
+      onClick={handleClick}
+      className={`fixed top-1/2 left-1/2 z-40 cursor-pointer select-none ${
+        clicked ? 'scale-110' : ''
+      }`}
+      style={{
+        transition: 'transform 0.05s',
+        padding: '10px' // slightly larger hit area
+      }}
+    >
+      <div
+        className="flex h-20 w-20 items-center justify-center rounded-full bg-cyan-400/10 backdrop-blur-md hover:scale-110"
+        style={{
+          boxShadow: '0 0 15px rgba(102, 252, 241, 0.4), inset 0 0 10px rgba(102, 252, 241, 0.3)',
+          border: '1px solid rgba(102, 252, 241, 0.5)',
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-8 w-8 text-cyan-300 animate-pulse pointer-events-none"
+          fill="none"
+          viewBox="0 0 256 256"
+          stroke="currentColor"
+          strokeWidth="16"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-            {/* Controller Icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256" fill="none" stroke="#66FCF1" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M76,120h24v24H76Z" opacity="0.2"/>
-                <path d="M176,144a28,28,0,0,1-28-28,28.1,28.1,0,0,1,28-28" fill="none" stroke="#66FCF1" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                <path d="M100,120H76v24h24Z" fill="none" stroke="#66FCF1" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                <path d="M88,108V84" fill="none" stroke="#66FCF1" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-                <rect x="32" y="48" width="192" height="160" rx="40" fill="none" stroke="#66FCF1" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
-            </svg>
-        </a>
-    );
+          <path d="M76,120h24v24H76Z" opacity="0.2" />
+          <path d="M176,144a28,28,0,0,1-28-28,28.1,28.1,0,0,1,28-28" />
+          <path d="M100,120H76v24h24Z" />
+          <path d="M88,108V84" />
+          <rect x="32" y="48" width="192" height="160" rx="40" />
+        </svg>
+      </div>
+
+      {message && (
+        <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 text-sm rounded-lg bg-white/90 text-gray-800 shadow-lg animate-fade-in-out">
+          {message}
+        </div>
+      )}
+    </div>
+  );
 };
+
+// --- NEW Floating Fact Bubble Component ---
+const FloatingFactBubble = () => {
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const position = useRef({ x: 200, y: 200 });
+  const velocity = useRef({ x: (Math.random() - 0.5) * 10, y: (Math.random() - 0.5) * 10 });
+  const animationFrameId = useRef<number | null>(null);
+
+  const facts = [
+    "⚡ Future Billionaire (probably).",
+    "👀 Are you stalking me?",
+    "🧠 Runs on coffee and curiosity.",
+    "💻 Can turn pizza into code.",
+    "🌌 Building worlds, one bug at a time.",
+    "🫣 What are *you* doing here?",
+    "📍 Currently lost in my own thoughts."
+  ];
+  const [fact, setFact] = useState(facts[Math.floor(Math.random() * facts.length)]);
+
+  useEffect(() => {
+    const changeFact = setInterval(() => {
+      setFact(facts[Math.floor(Math.random() * facts.length)]);
+    }, 6000);
+    return () => clearInterval(changeFact);
+  }, []);
+
+  useEffect(() => {
+    const moveBubble = () => {
+      if (bubbleRef.current) {
+        position.current.x += velocity.current.x;
+        position.current.y += velocity.current.y;
+
+        const rect = bubbleRef.current.getBoundingClientRect();
+        if (position.current.x + rect.width >= window.innerWidth || position.current.x <= 0) {
+          velocity.current.x *= -1;
+        }
+        if (position.current.y + rect.height >= window.innerHeight || position.current.y <= 0) {
+          velocity.current.y *= -1;
+        }
+
+        bubbleRef.current.style.left = `${position.current.x}px`;
+        bubbleRef.current.style.top = `${position.current.y}px`;
+      }
+      animationFrameId.current = requestAnimationFrame(moveBubble);
+    };
+
+    animationFrameId.current = requestAnimationFrame(moveBubble);
+    return () => {
+      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={bubbleRef}
+      className="fixed top-1/2 left-1/2 z-40 flex h-28 w-28 p-3 text-center items-center justify-center rounded-full bg-pink-400/10 backdrop-blur-md text-sm leading-snug text-pink-300 font-medium transition-all duration-300 hover:scale-110 hover:bg-pink-400/20"
+      style={{
+        boxShadow: '0 0 15px rgba(195, 7, 63, 0.4), inset 0 0 10px rgba(195, 7, 63, 0.3)',
+        border: '1px solid rgba(195, 7, 63, 0.5)',
+      }}
+    >
+      {fact}
+    </div>
+  );
+};
+
+// --- NEW Floating Thought Bulb Component ---
+const FloatingThoughtBulb = () => {
+  const bulbRef = useRef<HTMLDivElement>(null);
+  const position = useRef({ x: 200, y: 200 });
+  const velocity = useRef({
+    x: (Math.random() - 0.5) * 10,
+    y: (Math.random() - 0.5) * 10
+  });
+  const animationFrameId = useRef<number | null>(null);
+
+  const messages = [
+    "💭 You found me!",
+    "🧠 Deep thought loading...",
+    "🤔 What if we're in a simulation?",
+    "😏 You’re quick, aren’t you?",
+    "🌟 Great minds click fast.",
+    "🫣 What are you doing here?"
+  ];
+  const [message, setMessage] = useState<string | null>(null);
+  const [clicked, setClicked] = useState(false);
+
+  // movement loop
+  useEffect(() => {
+    const moveBulb = () => {
+      if (bulbRef.current && !message) {
+        position.current.x += velocity.current.x;
+        position.current.y += velocity.current.y;
+
+        const rect = bulbRef.current.getBoundingClientRect();
+        if (position.current.x + rect.width >= window.innerWidth || position.current.x <= 0) {
+          velocity.current.x *= -1;
+        }
+        if (position.current.y + rect.height >= window.innerHeight || position.current.y <= 0) {
+          velocity.current.y *= -1;
+        }
+
+        bulbRef.current.style.left = `${position.current.x}px`;
+        bulbRef.current.style.top = `${position.current.y}px`;
+      }
+      animationFrameId.current = requestAnimationFrame(moveBulb);
+    };
+
+    animationFrameId.current = requestAnimationFrame(moveBulb);
+    return () => {
+      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+    };
+  }, [message]);
+
+  const handleClick = () => {
+    if (!message) {
+      setClicked(true); // visual feedback
+      const random = messages[Math.floor(Math.random() * messages.length)];
+      setMessage(random);
+      setTimeout(() => {
+        setMessage(null);
+        setClicked(false);
+      }, 2500);
+    }
+  };
+
+  return (
+    <div
+      ref={bulbRef}
+      onClick={handleClick}
+      className={`fixed top-1/2 left-1/2 z-50 cursor-pointer select-none ${
+        clicked ? 'scale-110' : ''
+      }`}
+      style={{
+        transition: 'transform 0.05s', // faster feedback
+        // slightly bigger invisible hit area
+        padding: '10px'
+      }}
+    >
+      <div
+        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-yellow-300/20 backdrop-blur-md"
+        style={{
+          boxShadow:
+            '0 0 25px rgba(253, 224, 71, 0.7), 0 0 60px rgba(253, 224, 71, 0.4)',
+          border: '1px solid rgba(253, 224, 71, 0.5)',
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-7 w-7 text-yellow-300 animate-pulse pointer-events-none"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9 18h6m-3 0v3m3-3a3 3 0 00.176-5.995A6 6 0 006 9a6 6 0 006-6 6 6 0 016 6c0 2.763-2.065 5.342-3 6.732V18z"
+          />
+        </svg>
+      </div>
+
+      {message && (
+        <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 text-sm rounded-lg bg-white/90 text-gray-800 shadow-lg animate-fade-in-out">
+          {message}
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+
 
 
 // --- UI Components ---
@@ -372,7 +588,7 @@ export default function HomePage() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [])
+  }, [])  
 
   return (
     <>
@@ -381,7 +597,10 @@ export default function HomePage() {
         {konamiSuccess && <MatrixRain />}
         <ConstellationCanvas />
         <FloatingGameBubble /> {/* <-- ADDED BUBBLE HERE */}
-        
+        <FloatingFactBubble /> {/* <-- NEW fact bubble */}
+        <FloatingThoughtBulb /> {/* <-- NEW floating lightbulb */}
+
+
         <div 
           className="pointer-events-none fixed inset-0 z-30 transition duration-300"
           style={{
