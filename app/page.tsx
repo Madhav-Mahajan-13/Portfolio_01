@@ -273,6 +273,12 @@ const FloatingGameBubble = () => {
           <rect x="32" y="48" width="192" height="160" rx="40" />
         </svg>
       </div>
+          {!message && (
+      <div className="absolute top-full mt-1 w-full text-center text-xs text-cyan-300 opacity-70 tracking-wide animate-pulse">
+        Catch Me 💫
+      </div>
+    )}
+
 
       {message && (
         <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 text-sm rounded-lg bg-white/90 text-gray-800 shadow-lg animate-fade-in-out">
@@ -444,6 +450,12 @@ const FloatingThoughtBulb = () => {
           />
         </svg>
       </div>
+      {!message && (
+  <div className="absolute top-full mt-1 w-full text-center text-xs text-cyan-300 opacity-70 tracking-wide animate-pulse">
+    Catch Me 💫
+  </div>
+)}
+
 
       {message && (
         <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 text-sm rounded-lg bg-white/90 text-gray-800 shadow-lg animate-fade-in-out">
@@ -597,7 +609,7 @@ export default function HomePage() {
         {konamiSuccess && <MatrixRain />}
         <ConstellationCanvas />
         <FloatingGameBubble /> {/* <-- ADDED BUBBLE HERE */}
-        <FloatingFactBubble /> {/* <-- NEW fact bubble */}
+        {/* <FloatingFactBubble /> <-- NEW fact bubble */}
         <FloatingThoughtBulb /> {/* <-- NEW floating lightbulb */}
 
 
