@@ -49,5 +49,29 @@ export const projectsData = [
     tags: ["C++", "STL", "Data Structures", "Algorithms", "Fraud Detection", "CLI Application"],
     demo: "#",
     github: "https://github.com/Madhav-Mahajan-13/Voting-System-with-Fraud-Detection.git"
+  },
+  {
+    title: "AI-Powered Surveillance System",
+    description: [
+      "Developed a real-time surveillance system leveraging YOLOv5 and SORT for object detection and tracking.",
+      "Implemented abandoned-object and loitering detection with real-time alert visualization on Streamlit.",
+      "Enabled live video analytics with adjustable monitoring parameters and optimized inference performance.",
+      "Enhances safety monitoring through automated visual intelligence."
+    ],
+    tags: ["Python", "OpenCV", "YOLOv5", "SORT", "Streamlit", "Computer Vision"],
+    demo: "#",
+    github: "https://github.com/Madhav-Mahajan-13/AI-Powered-Surveillance-System"
+  },
+  {
+    title: "Acadify: Course Management System",
+    description: [
+      "Database-driven academic management system designed to handle courses, faculty, and chatrooms efficiently.",
+      "Implemented triggers, constraints, and indexing to ensure data integrity and fast query performance.",
+      "Enabled automated workflows for assignments, faculty load reports, and student management.",
+      "Focused on optimizing database normalization and performance tuning for analytics."
+    ],
+    tags: ["PostgreSQL", "SQL", "Database Design", "Views", "Triggers", "Optimization"],
+    demo: "#",
+    github: "https://github.com/Madhav-Mahajan-13/Acadify-Course-Management-System"
   }
 ];
